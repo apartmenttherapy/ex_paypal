@@ -7,6 +7,8 @@ defmodule ExPaypal.MixProject do
       version: "0.1.0",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env),
+      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test],
+      test_coverage: [tool: ExCoveralls],
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -27,6 +29,7 @@ defmodule ExPaypal.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:excoveralls, ">= 0.0.0"},
       {:httpoison, ">= 0.0.0"},
       {:poison, ">= 0.0.0"}
     ]
