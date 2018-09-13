@@ -49,6 +49,23 @@ defmodule ExPaypal.Data.BusinessDetails do
                country_of_incorporation: CountryCode.t
              }
 
+  @type data :: [{:phone_contacts, [PhoneDetails.t, ...]},
+                 {:business_address, Address.t},
+                 {:business_type, business_type},
+                 {:category, String.t},
+                 {:sub_category, String.t},
+                 {:merchant_category_code, String.t},
+                 {:purpose_code, purpose_code},
+                 {:names, [BusinessName.t, ...]},
+                 {:business_description, String.t},
+                 {:event_dates, [EventDate.t, ...]},
+                 {:website_urls, [URL.t, ...]},
+                 {:annual_sales_volume_range, CurrencyRange.t},
+                 {:average_monthly_volume_range, CurrencyRange.t},
+                 {:identity_documents, [IdentityDocument.t, ...]},
+                 {:email_contacts, [EmailContact.t, ...]},
+                 {:country_of_incorporation, CountryCode.t}]
+
   @type business_type :: :INDIVIDUAL
                          | :PROPRIETORSHIP
                          | :PARTNERSHIP
@@ -80,15 +97,6 @@ defmodule ExPaypal.Data.BusinessDetails do
                         | :P1008
                         | :P1009
 
-  @type data :: %{
-                 optional(:business_type) => String.t,
-                 optional(:category) => String.t,
-                 optional(:sub_category) => String.t,
-                 optional(:merchant_category_code) => String.t,
-                 optional(:purpose_code) => String.t,
-                 optional(:business_description) => String.t
-                }
-
   @doc """
   Creates a new `t:ExPaypal.Data.BusinessDetails.t/0` struct.
 
@@ -98,26 +106,13 @@ defmodule ExPaypal.Data.BusinessDetails do
 
   ## Examples
 
-      iex> BusinessDetails.new(%{business_description: "The Laundry"})
+      iex> BusinessDetails.new(business_description: "The Laundry")
       %BusinessDetails{business_description: "The Laundry"}
 
   """
   @spec new(data) :: __MODULE__.t
   def new(data) do
-    Enum.reduce(local_attrs(), %__MODULE__{}, fn attr, record ->
-      struct(record, [{attr, Map.get(data, attr)}])
-    end)
-  end
-
-  defp local_attrs do
-    [
-      :business_type,
-      :category,
-      :sub_category,
-      :merchant_category_code,
-      :purpose_code,
-      :business_description
-    ]
+    struct(__MODULE__, data)
   end
 
   @doc """

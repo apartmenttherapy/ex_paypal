@@ -16,4 +16,26 @@ defmodule ExPaypal.Data.Capability do
                       | :BANK_ADDITION
                       | :BILLING_AGREEMENT
                       | :CONTEXTUAL_MARKETING_CONSENT
+
+  @type data :: [{:capability, capability},
+                 {:api_integration_preference, IntegrationDetails.t},
+                 {:billing_agreement, BillingAgreement.t}]
+
+  @doc """
+  Create a `t:ExPaypal.Data.Capability.t/0` struct
+
+  ## Parameters
+
+    - `data`: The capability data (`t:ExPaypal.Data.Capability.data/0`)
+
+  ## Examples
+
+      iex> Capability.new(capability: :API_INTEGRATION, api_integration_preference: preference)
+      %Capability{capability: :API_INTEGRATION, api_integration_preference: %IntegrationDetails{}}
+
+  """
+  @spec new(data) :: __MODULE__.t
+  def new(data) do
+    struct(__MODULE__, data)
+  end
 end

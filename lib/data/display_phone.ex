@@ -16,7 +16,7 @@ defmodule ExPaypal.Data.DisplayPhone do
 
   ## Examples
 
-      iex> DisplayPhone.new("US", "155555555555")
+      iex> DisplayPhone.new("US", "15555555555")
       %DisplayPhone{country_code: "US", number: "15555555555"}
 
   """

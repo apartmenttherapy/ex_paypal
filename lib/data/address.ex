@@ -5,7 +5,7 @@ defmodule ExPaypal.Data.Address do
 
   alias ExPaypal.Data.Validator
 
-  @enforce_keys [:line1, :line2, :city, :country_code]
+  @enforce_keys [:line1, :city, :country_code]
   defstruct [:line1, :line2, :city, :state, :country_code]
   @type t :: %__MODULE__{line1: String.t,
                          line2: String.t,
@@ -14,7 +14,7 @@ defmodule ExPaypal.Data.Address do
                          country_code: String.t
                         }
 
-  @typep required_keys :: :line1 | :line2 | :city | :country_code
+  @typep required_keys :: :line1 | :city | :country_code
 
   @type data :: %{required(required_keys) => String.t,
                   optional(:state) => String.t
@@ -29,11 +29,11 @@ defmodule ExPaypal.Data.Address do
 
   ## Examples
 
-      iex> Address.new(line1: "42", line2: "Example Rd.", city: "Exampleville", country_code: "US")
-      {:ok, %Address{line1: "42", line2: "Example Rd.", city: "Exampleville", country_code: "US"}}
+      iex> Address.new(line1: "42 Example Rd.", city: "Exampleville", country_code: "US")
+      {:ok, %Address{line1: "42 Example Rd.", city: "Exampleville", country_code: "US"}}
 
       iex> Address.new(line1: "42")
-      {:error, missing: [:city, :country_code, :line2]}
+      {:error, missing: [:city, :country_code]}
 
   """
   @spec new(data) :: {:ok, __MODULE__.t} | {:error, [missing: [atom]]}
@@ -56,7 +56,6 @@ defmodule ExPaypal.Data.Address do
   defp required_keys do
     [
       :line1,
-      :line2,
       :city,
       :country_code
     ]

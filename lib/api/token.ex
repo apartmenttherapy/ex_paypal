@@ -11,8 +11,6 @@ defmodule ExPaypal.API.Token do
 
   require Logger
 
-  alias ExPaypal.API.Request
-
   defstruct value: nil, expiration: nil
   @type t :: %__MODULE__{
                value: nil | String.t,
@@ -39,7 +37,13 @@ defmodule ExPaypal.API.Token do
 
   defp body, do: [grant_type: "client_credentials"]
 
-  defp headers, do: Request.default_headers() ++ [{"Content-Type", "application/x-www-form-urlencoded"}]
+  defp headers do
+    [
+      {"Content-Type", "application/x-www-form-urlencoded"},
+      {"Accept", "application/json"},
+      {"Accept-Language", "en_US"}
+    ]
+  end
 
   defp token_url do
     Application.get_env(:ex_paypal, :base_url) <> "v1/oauth2/token"

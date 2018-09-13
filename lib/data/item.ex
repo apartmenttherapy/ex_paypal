@@ -34,7 +34,7 @@ defmodule ExPaypal.Data.Item do
       {:ok, %Item{sku: "SKU", quantity: "1", price: "42.00", currency: "USD"}}
 
       iex> Item.new(sku: "SKU")
-      {:error, missing: [:quantity, :price, :currency]}
+      {:error, missing: [:currency, :price, :quantity]}
 
   """
   @spec new(data) :: {:ok, __MODULE__.t} | {:error, Keyword.t}
