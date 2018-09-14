@@ -43,7 +43,7 @@ defmodule ExPaypal.Data.RestAPIIntegration do
   ## Examples
 
       iex> RestAPIIntegration.new(:BRAINTREE, integration_type: :THIRD_PARTY)
-      %RestAPIIntegration{integration_method: :PAYPAL, integration_type: :THIRD_PARTY}
+      %RestAPIIntegration{integration_method: :BRAINTREE, integration_type: :THIRD_PARTY}
 
   """
   @spec new(method, opts) :: __MODULE__.t

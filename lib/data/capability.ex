@@ -31,7 +31,7 @@ defmodule ExPaypal.Data.Capability do
   ## Examples
 
       iex> Capability.new(capability: :API_INTEGRATION, api_integration_preference: preference)
-      %Capability{capability: :API_INTEGRATION, api_integration_preference: %IntegrationDetails{}}
+      %Capability{capability: :API_INTEGRATION, api_integration_preference: %IntegrationDetails{partner_id: "joe@example.com"}}
 
   """
   @spec new(data) :: __MODULE__.t

@@ -4,8 +4,8 @@ defmodule ExPaypal.Data.AccountOwnerRelationship do
   """
 
   @enforce_keys [:name, :country_code_of_nationality]
-  defstruct name: nil
-            relation: :MOTHER
+  defstruct name: nil,
+            relation: :MOTHER,
             country_code_of_nationality: nil
   @type t :: %__MODULE__{name: nil | Name.t,
                          relation: :MOTHER,
