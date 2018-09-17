@@ -34,6 +34,11 @@ defmodule ExPaypal.Data.Order do
                  {:gross_total_amount, Currency.t},
                  {:metadata, Metadata.t}]
 
+  @type status :: :CREATED
+                  | :APPROVED
+                  | :COMPLETED
+                  | :FAILED
+
   @doc """
   Creates a `t:ExPaypal.Data.Order.t/0` struct
 
@@ -79,5 +84,32 @@ defmodule ExPaypal.Data.Order do
   def new(unit, redirects, opts) do
     parts = [purchase_units: [unit], redirect_urls: redirects] ++ opts
     struct(__MODULE__, parts)
+  end
+
+  @doc """
+  Convert a status value in a response to a `t:ExPaypal.Data.Order.status/0` value
+
+  ## Parameters
+
+    - `status`: The status value from PayPal
+
+  ## Examples
+
+      iex> Order.status("APPROVED")
+      :APPROVED
+
+  """
+  @spec status(String.t) :: status
+  def status(val) do
+    case val do
+      "CREATED" ->
+        :CREATED
+      "APPROVED" ->
+        :APPROVED
+      "COMPLETED" ->
+        :COMPLETED
+      "FAILED" ->
+        :FAILED
+    end
   end
 end

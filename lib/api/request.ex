@@ -6,6 +6,7 @@ defmodule ExPaypal.API.Request do
   use HTTPoison.Base
 
   alias ExPaypal.API.Auth
+  alias ExPaypal.Data.Order
 
   @endpoint Application.get_env(:ex_paypal, :base_url)
 
@@ -20,6 +21,31 @@ defmodule ExPaypal.API.Request do
   @spec pay(String.t) :: {:error, map} | {:ok, map}
   def pay(order_id) do
     post("v1/checkout/orders/#{order_id}/pay", "{\"disbursement_mode\":\"DELAYED\"}")
+  end
+
+  @doc """
+  Get the status of the given order
+
+  ## Parameters
+
+    - `order_id`: The Order ID to check
+
+  """
+  @spec order_status(String.t) :: {:ok, Order.status} | {:error, term}
+  def order_status(order_id) do
+    order_id
+    |> order_status_path()
+    |> get()
+    |> case do
+      {:ok, response} ->
+        {:ok, Order.status(response.body()["status"])}
+      {:error, %{reason: reason}} ->
+        {:error, reason}
+    end
+  end
+
+  defp order_status_path(order_id) do
+    "v1/checkout/orders/#{order_id}"
   end
 
   def process_url(url) do
