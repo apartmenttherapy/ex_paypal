@@ -37,8 +37,10 @@ defmodule ExPaypal.API.Request do
     |> order_status_path()
     |> get()
     |> case do
-      {:ok, response} ->
-        {:ok, Order.status(response.body()["status"])}
+      {:ok, %{body: body}} when is_map(body) ->
+        {:ok, Order.status(body["status"])}
+      {:ok, %{body: body}} when is_binary(body) ->
+        {:error, body}
       {:error, %{reason: reason}} ->
         {:error, reason}
     end
