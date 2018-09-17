@@ -9,6 +9,19 @@ defmodule ExPaypal.API.Request do
 
   @endpoint Application.get_env(:ex_paypal, :base_url)
 
+  @doc """
+  Pay the given order
+
+  ## Parameters
+
+    - `order_id`: The Order ID as returned by PayPal
+
+  """
+  @spec pay(String.t) :: {:error, map} | {:ok, map}
+  def pay(order_id) do
+    post("v1/checkout/orders/#{order_id}/pay", "{\"disbursement_mode\":\"DELAYED\"}")
+  end
+
   def process_url(url) do
     @endpoint <> url
   end
