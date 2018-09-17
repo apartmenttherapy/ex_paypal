@@ -3,31 +3,51 @@ defmodule ExPaypal.Data.Amount do
   The [`amount` object](https://developer.paypal.com/docs/api/orders/v1/#definition-amount) for PayPal.
   """
 
+  alias ExPaypal.Data.Details
+
   @enforce_keys [:currency, :total]
   defstruct [:currency, :total, :details]
   @type t :: %__MODULE__{currency: String.t,
                          total: String.t,
                          details: Details.t}
 
-  @type data :: [{:currency, String.t},
-                 {:total, String.t},
-                 {:details, Details.t}]
-
   @doc """
-  Create a new `t:ExPaypal.Data.Amount.t/0` struct
+  Create a `t:ExPaypal.Data.Amount.t/0` struct
 
   ## Parameters
 
-    - `data`: The data for the `Amount` (`t:ExPaypal.Data.Amount.data/0`)
+    - `total`: The value for the amount, ex: `"42.42"`
+    - `currency`: The currency for the amount, ex: `"USD"`
 
   ## Examples
 
-      iex> Amount.new(currency: "USD", total: "42.42")
+      iex> Amount.new("42.42", "USD")
       %Amount{currency: "USD", total: "42.42"}
 
   """
-  @spec new(data) :: __MODULE__.t
-  def new(data) do
-    struct(__MODULE__, data)
+  @spec new(String.t, String.t) :: __MODULE__.t
+  def new(total, currency) do
+    struct(__MODULE__, total: total, currency: currency)
+  end
+
+  @doc """
+  Create a `t:ExPaypal.Data.Amount.t/0` struct with `details`
+
+  ## Parameters
+
+    - `total`: The value for the amount, ex: `"42.42"`
+    - `currency`: The currency for the amount, ex: `"USD"`
+    - `details`: Optional details about the amount (`t:ExPaypal.Data.Details.t/0`)
+
+  ## Examples
+
+      iex> Amount.new("42.42", "USD", %Details{})
+      %Amount{currency: "USD", total: "42.42", details: %Details{}}
+
+  """
+  @spec new(String.t, String.t, Details.t) :: __MODULE__.t
+  def new(total, currency, details) do
+    parts = [currency: currency, total: total, details: details]
+    struct(__MODULE__, parts)
   end
 end
