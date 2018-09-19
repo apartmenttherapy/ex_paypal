@@ -65,7 +65,29 @@ defmodule ExPaypal.API.Request do
       {"Accept", "application/json"},
       {"Accept-Language", "en_US"},
       {"Content-Type", "application/json"}
-    ]
+    ] ++ env_headers()
+  end
+
+  def env_headers do
+    bn_header() ++ client_meta_header()
+  end
+
+  def bn_header do
+    case Application.get_env(:ex_paypal, :bn_code) do
+      nil ->
+        []
+      code ->
+        [{"PayPal-Partner-Attribution-Id", code}]
+      end
+  end
+
+  def client_meta_header do
+    case Application.get_env(:ex_paypal, :client_meta) do
+      nil ->
+        []
+      code ->
+        [{"PayPal-Client-Metadata-Id", code}]
+    end
   end
 
   def process_response_body(body) do
