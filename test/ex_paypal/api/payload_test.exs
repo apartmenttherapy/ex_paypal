@@ -2,7 +2,8 @@ defmodule ExPaypal.API.PayloadTest do
   use ExUnit.Case
 
   alias ExPaypal.API.Payload
-  alias ExPaypal.Data.Amount
+  alias ExPaypal.Data.{Amount, LinkDescription}
+  alias ExPaypal.Response.{Onboard, Order}
 
   doctest Payload
 
@@ -46,4 +47,9 @@ defmodule ExPaypal.API.PayloadTest do
     {"total":"42.42","details":{"tax":"3.17","subtotal":"33.25","shipping":"6.00"},"currency":"USD"}
     """ |> String.strip()
   end
+
+  alias ExPaypal.Response.{OnboardTest, OrderTest}
+
+  defp onboard_payload, do: OnboardTest.payload()
+  defp order_payload, do: OrderTest.payload()
 end

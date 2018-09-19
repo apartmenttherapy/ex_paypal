@@ -5,10 +5,40 @@ defmodule ExPaypal.API.Request do
 
   use HTTPoison.Base
 
-  alias ExPaypal.API.Auth
+  alias ExPaypal.API.{Auth, Payload}
   alias ExPaypal.Data.Order
 
   @endpoint Application.get_env(:ex_paypal, :base_url)
+
+  @doc """
+  Initiate onboarding
+
+  ## Parameters
+
+    - `onboard`: A `t:ExPaypal.Data.Onboard.t/0` struct
+
+  """
+  @spec onboard(ExPaypal.Data.Onboard.t) :: {:ok, ExPaypal.Response.Onboard.t} | {:error, any}
+  def onboard(onboard) do
+    "v1/customer/partner-referrals"
+    |> post(Payload.as_json(onboard))
+    |> Payload.onboard_response()
+  end
+
+  @doc """
+  Create an order
+
+  ## Parameters
+
+    - `order`: A `t:ExPaypal.Data.Order.t/0` struct
+
+  """
+  @spec create_order(ExPaypal.Data.Order.t) :: {:ok, ExPaypal.Response.Order.t} | {:error, any}
+  def create_order(order) do
+    "v1/checkout/orders"
+    |> post(Payload.as_json(order))
+    |> Payload.order_response()
+  end
 
   @doc """
   Pay the given order

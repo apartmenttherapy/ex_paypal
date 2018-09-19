@@ -23,27 +23,27 @@ defmodule ExPaypal.Response.OrderTest do
   end
 
   defp order do
-    Order.new(sample())
+    Order.new(payload())
   end
 
-  defp sample do
+  def payload do
     %{
       "create_time" => "2018-09-18T16:23:01Z",
       "gross_total_amount" => %{"currency" => "USD", "value" => "42.42"},
       "id" => "07K42630JC543372V",
       "links" => [
         %{
-          "href" => "https://api.sandbox.paypal.com/v1/checkout/orders/07K42630JC543372V",
+          "href" => "https://example.com",
           "method" => "GET",
           "rel" => "self"
         },
         %{
-          "href" => "https://www.sandbox.paypal.com/checkoutnow?token=07K42630JC543372V",
+          "href" => "https://example.com",
           "method" => "REDIRECT",
           "rel" => "approval_url"
         },
         %{
-          "href" => "https://api.sandbox.paypal.com/v1/checkout/orders/07K42630JC543372V/pay",
+          "href" => "https://example.com",
           "method" => "POST",
           "rel" => "pay"
         }
