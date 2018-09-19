@@ -31,7 +31,8 @@ defmodule ExPaypal.MixProject do
     [
       {:excoveralls, ">= 0.0.0"},
       {:httpoison, ">= 0.0.0"},
-      {:poison, ">= 0.0.0"}
+      {:poison, ">= 0.0.0"},
+      {:timex, ">= 0.0.0"}
     ]
   end
 end
