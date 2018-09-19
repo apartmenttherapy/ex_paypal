@@ -29,7 +29,7 @@ defmodule ExPaypal.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:excoveralls, ">= 0.0.0"},
+      {:excoveralls, ">= 0.0.0", only: [:test]},
       {:httpoison, ">= 0.0.0"},
       {:poison, ">= 0.0.0"},
       {:timex, ">= 0.0.0"}
