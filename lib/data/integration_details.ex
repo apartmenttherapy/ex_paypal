@@ -5,7 +5,11 @@ defmodule ExPaypal.Data.IntegrationDetails do
 
   alias ExPaypal.Data.{RestAPIIntegration, RestThirdPartyDetails}
 
-  defstruct [:partner_id, :rest_api_integration, :rest_third_party_details]
+  @partner_id Application.get_env(:ex_paypal, :partner_id)
+
+  defstruct partner_id: @partner_id,
+            rest_api_integration: nil,
+            rest_third_party_details: nil
   @type t :: %__MODULE__{
                partner_id: String.t,
                rest_api_integration: RestAPIIntegration.t,
@@ -16,29 +20,10 @@ defmodule ExPaypal.Data.IntegrationDetails do
                  {:rest_third_party_details, RestThirdPartyDetails.t}]
 
   @doc """
-  Create a `t:ExPaypal.Data.IntegrationDetails.t/0` struct
-
-  ## Parameters
-
-    - `partner_id`: The PayPal ID for the partner
-
-  ## Examples
-
-      iex> IntegrationDetails.new("joe@example.com")
-      %IntegrationDetails{partner_id: "joe@example.com"}
-
-  """
-  @spec new(String.t) :: __MODULE__.t
-  def new(partner_id) do
-    struct(__MODULE__, partner_id: partner_id)
-  end
-
-  @doc """
   Create a `t:ExPaypal.Data.IntegrationDetails.t/0` struct with optional data
 
   ## Parameters
 
-    - `partner_id`: The PayPal ID for the partner.
     - `opts`: The integration opts (`t:ExPaypal.Data.IntegrationDetails.opts/0`)
 
   ## Examples
@@ -47,9 +32,8 @@ defmodule ExPaypal.Data.IntegrationDetails do
       %IntegrationDetails{partner_id: "joe@example.com", rest_api_integration: %RestAPIIntegration{integration_method: :PAYPAL}}
 
   """
-  @spec new(String.t, opts) :: __MODULE__.t
-  def new(partner_id, opts) do
-    parts = [partner_id: partner_id] ++ opts
-    struct(__MODULE__, parts)
+  @spec new(opts) :: __MODULE__.t
+  def new(opts) do
+    struct(__MODULE__, opts)
   end
 end
