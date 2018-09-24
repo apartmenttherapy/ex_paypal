@@ -22,7 +22,7 @@ defmodule ExPaypal.API.Payload do
   def as_json(%{} = record) do
     record
     |> compact()
-    |> Poison.encode!()
+    |> Poison.encode!(pretty: true)
   end
 
   defp compact(%_{} = record) do
