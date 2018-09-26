@@ -15,7 +15,7 @@ defmodule ExPaypal.API.Payload do
   ## Examples
 
       iex> Payload.as_json(%Amount{total: "42.42", currency: "USD"})
-      \"{\\"total\\":\\"42.42\\",\\"currency\\":\\"USD\\"}\"
+      \"{\\n  \\"total\\": \\"42.42\\",\\n  \\"currency\\": \\"USD\\"\\n}\"
 
   """
   @spec as_json(map) :: String.t

@@ -8,15 +8,15 @@ defmodule ExPaypal.API.PayloadTest do
   doctest Payload
 
   test "`as_json/1` purnes nil values in nested structs" do
-    assert expected() == Payload.as_json(in_struct())
+    assert expected() == Payload.as_json(in_struct()) |> String.replace(~r/\s/, "")
   end
 
   test "`as_json/1` prunes nil values in nested maps" do
-    assert "{\"id\":\"42\",\"amount\":#{expected()}}" == Payload.as_json(in_map())
+    assert "{\"id\":\"42\",\"amount\":#{expected()}}" == Payload.as_json(in_map()) |> String.replace(~r/\s/, "")
   end
 
   test "`as_json/1` prunes nil values in structs nested in lists" do
-    assert "{\"list\":[#{expected()}]}" == Payload.as_json(in_list())
+    assert "{\"list\":[#{expected()}]}" == Payload.as_json(in_list()) |> String.replace(~r/\s/, "")
   end
 
   defp in_struct do
