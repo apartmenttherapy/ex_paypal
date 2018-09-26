@@ -18,7 +18,7 @@ defmodule ExPaypal.Response.Onboard do
   ## Examples
 
       iex> Onboard.new(payload)
-      %Onboard{links: [%LinkDescription{href: "https://example.com", method: :GET, rel: "self"}]}
+      %Onboard{links: [%LinkDescription{href: "https://example.com", method: :GET, rel: "action_url"}]}
 
   """
   @spec new(map) :: __MODULE__.t
@@ -32,4 +32,22 @@ defmodule ExPaypal.Response.Onboard do
 
   defp link_method(nil), do: nil
   defp link_method(method), do: String.to_atom(method)
+
+  @doc """
+  Returns the Action URL from the response if there is one
+
+  ## Parameters
+
+    - `record`: The `t:ExPaypal.Response.Onboard.t/0` struct to be checked
+
+  ## Examples
+
+      iex> Onboard.action_url(onboard)
+      %LinkDescription{href: "https://example.com", rel: "action_url", method: :GET}
+
+  """
+  def action_url(record) do
+    record.links()
+    |> Enum.find(fn link -> link.rel() == "action_url" end)
+  end
 end

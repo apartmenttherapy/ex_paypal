@@ -78,8 +78,8 @@ defmodule ExPaypal.API.Payload do
 
   ## Example
 
-      iex> Payload.onboard_response({:ok, %{body: onboard_payload})
-      {:ok, %Onboard{links: [%LinkDescription{href: "https://example.com", method: :GET, rel: "self"}]}}
+      iex> Payload.onboard_response({:ok, %{body: onboard_payload}})
+      {:ok, %Onboard{links: [%LinkDescription{href: "https://example.com", method: :GET, rel: "action_url"}]}}
 
   """
   @spec onboard_response({:ok, HTTPoison.t} | {:error, HTTPoison.Error.t}) :: {:ok, Onboard.t} | {:error, any}

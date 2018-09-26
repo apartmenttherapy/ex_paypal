@@ -6,6 +6,9 @@ defmodule ExPaypal.Response.OnboardTest do
 
   doctest Onboard
 
+  defp onboard, do: Onboard.new(payload)
+
+  # This payload is actually used in other tests so should remain public
   def payload do
     %{
       "links" => [
@@ -13,7 +16,7 @@ defmodule ExPaypal.Response.OnboardTest do
           "description" => "Read Referral Data shared by the Caller.",
           "href" => "https://example.com",
           "method" => "GET",
-          "rel" => "self"
+          "rel" => "action_url"
         }
       ]
     }
