@@ -28,7 +28,7 @@ defmodule ExPaypal.Data.IntegrationDetails do
 
   ## Examples
 
-      iex> IntegrationDetails.new("joe@example.com", rest_api_integration: api_integration)
+      iex> IntegrationDetails.new(rest_api_integration: api_integration)
       %IntegrationDetails{partner_id: "joe@example.com", rest_api_integration: %RestAPIIntegration{integration_method: :PAYPAL}}
 
   """
