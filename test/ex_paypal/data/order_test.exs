@@ -1,7 +1,10 @@
 defmodule ExPaypal.Data.OrderTest do
   use ExUnit.Case
 
-  alias ExPaypal.Data.{Amount, Order, PurchaseUnit, RedirectUrls}
+  alias ExPaypal.Data.{Amount,
+                       Order,
+                       PurchaseUnit,
+                       RedirectUrls}
   doctest Order
 
   defp unit1 do

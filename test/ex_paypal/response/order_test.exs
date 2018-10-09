@@ -63,4 +63,22 @@ defmodule ExPaypal.Response.OrderTest do
       "status" => "CREATED"
     }
   end
+
+  def response do
+    %Order{
+      id: "42",
+      links: [
+        %LinkDescription{
+          href: "https://example.com",
+          rel: "approval_url",
+          method: :GET
+        },
+        %LinkDescription{
+          href: "https://badsite.com",
+          rel: "cracker_jack_redirect",
+          method: :GET
+        }
+      ]
+    }
+  end
 end

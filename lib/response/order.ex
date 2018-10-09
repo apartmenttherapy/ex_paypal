@@ -81,4 +81,22 @@ defmodule ExPaypal.Response.Order do
   defp status(val) do
     String.to_atom(val)
   end
+
+  @doc """
+  Returns the Action URL from the response if there is one
+
+  ## Parameters
+
+    - `record`: The `t:ExPaypal.Response.Onboard.t/0` struct to be checked
+
+  ## Examples
+
+      iex> Order.approval_url(response)
+      %LinkDescription{href: "https://example.com", rel: "approval_url", method: :GET}
+
+  """
+  def approval_url(record) do
+    record.links()
+    |> Enum.find(fn link -> link.rel() == "approval_url" end)
+  end
 end
